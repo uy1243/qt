@@ -1,5 +1,5 @@
 QT -= gui
-QT+=qml
+QT+=qml quick
 QT += widgets
 CONFIG += c++11 console
 CONFIG -= app_bundle
@@ -41,8 +41,7 @@ else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/./ -lvxlapid
 INCLUDEPATH += $$PWD/.
 DEPENDPATH += $$PWD/.
 
-DISTFILES += \
-    vec.qml
+DISTFILES +=
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../Python36/libs/ -lpython36
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../../Python36/libs/ -lpython36d
@@ -50,3 +49,6 @@ else:unix: LIBS += -L$$PWD/../../../../../../Python36/libs/ -lpython36
 
 INCLUDEPATH += $$PWD/../../../../../../Python36/include
 DEPENDPATH += $$PWD/../../../../../../Python36/include
+
+RESOURCES += \
+    videoshow.qrc

@@ -6,6 +6,7 @@
 #include"mulgetmess.h"
 #include"mainw.h"
 #include<QObject>
+#include <QQmlApplicationEngine>
 
 
 
@@ -36,9 +37,14 @@ qDebug()<<gth.xlPortHandle;
 
 
 
+
+
+
+
         //QObject::connect(mw.qb, SIGNAL(released(int)),&ms,  SLOT(stopMess()));
  //QObject::connect(mw, &MainW::sMess,mw, &MainW::showMess);
-  mw->show();
+ mw->loadQML();
+  //mw->show();
 mw->sne();
 
 mulGetMess *mulM=new mulGetMess();

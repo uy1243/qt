@@ -1,7 +1,8 @@
 #include "mainw.h"
 #include <QObject>
 #include<qdebug.h>
-
+#include<QQmlApplicationEngine>
+#include <QQuickView>
 
 
 
@@ -21,6 +22,20 @@ qt=new QTextEdit();
 void MainW::sne()
 {
     emit sMess(QString("hi"));
+}
+
+void MainW::loadQML()
+{
+    // qmlRegisterType<FuncCAN>("People", 1,0, "Person");
+
+
+    QQuickView *view = new QQuickView;
+        view->setSource(QStringLiteral("qrc:///vec.qml"));
+        view->show();
+
+    //QQmlApplicationEngine engine;
+    //engine.addImportPath(QStringLiteral(":/imports"));
+   // engine.load(QUrl(QStringLiteral("qrc:///vec.qml")));
 }
 
 

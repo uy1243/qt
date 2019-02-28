@@ -18,6 +18,7 @@ public:
      QPushButton *qb;
      QTextEdit *qt;
      void sne();
+     void loadQML();
 public slots:
      void showMess(QString mess);
 signals:
