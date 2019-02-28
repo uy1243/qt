@@ -19,9 +19,9 @@ qt=new QTextEdit();
 
 }
 
-void MainW::sne()
+void MainW::sendMessages()
 {
-    emit sMess(QString("hi"));
+    emit sigMess(QString("hi"));
 }
 
 void MainW::loadQML()
@@ -44,5 +44,10 @@ void MainW::showMess(QString mess)
 {
   // qt->append(mess);
     qDebug()<<mess;
+
+}
+void MainW::showMessInGUI(QString mess)
+{
+  qt->append(mess);
 
 }

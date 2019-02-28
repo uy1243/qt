@@ -59,7 +59,7 @@ printf("xlstatus=%d\n",xlStatus);
                 QString me(xlGetEventString(&xlEvent));
  printf("string=%s\n", xlGetEventString(&xlEvent));
                // sleep(1);
-                if(me!=NULL) emit sMes(me);
+                if(me!=NULL) emit sigCANMes(me);
 
 
                 //g_th->cm = xlGetEventString(&xlEvent);

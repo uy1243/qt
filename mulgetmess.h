@@ -31,7 +31,7 @@ private:
     QString         mess;
     TStruct *g_th;
 signals:
-    void sMes(QString mess);
+    void sigCANMes(QString mess);
 };
 //! [0]
 

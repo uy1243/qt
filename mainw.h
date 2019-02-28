@@ -17,12 +17,13 @@ public:
      explicit MainW(QWidget *parent = nullptr);
      QPushButton *qb;
      QTextEdit *qt;
-     void sne();
+     void sendMessages();
      void loadQML();
 public slots:
      void showMess(QString mess);
+     void showMessInGUI(QString mess);
 signals:
-     void sMess(QString mess);
+     void sigMess(QString mess);
 };
 
 #endif // MAINW_H
