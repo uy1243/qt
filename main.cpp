@@ -25,12 +25,12 @@ int main(int argc, char *argv[])
     MainW *mw=new MainW();
 
     QObject::connect(mw, &MainW::sigMess,mw, &MainW::showMessInGUI);
-    mw->loadQML();
+    //mw->loadQML();
     mw->sendMessages();
 
     mulGetMess *mulM=new mulGetMess();
     mulM->getMessage(gth);
-//    mulM->start();
-//    QObject::connect(mulM, &mulGetMess::sigCANMes,mw, &MainW::showMess);
+    mulM->start();
+    QObject::connect(mulM, &mulGetMess::sigCANMes,mw, &MainW::showMess);
     return app.exec();
 }
