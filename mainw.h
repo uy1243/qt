@@ -9,12 +9,12 @@
 #include <QPlainTextEdit>
 
 
-class MainW: public QMainWindow
+class MainW: public QObject
 {
 
-Q_OBJECT
+    Q_OBJECT
 public:
-     explicit MainW(QWidget *parent = nullptr);
+     MainW();
      QPushButton *qb;
      QTextEdit *qt;
      void sendMessages();

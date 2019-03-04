@@ -7,15 +7,11 @@
 
 
 
-MainW::MainW(QWidget *parent)
-    : QMainWindow(parent, 0)
+MainW::MainW()
 
 {
    // qb=new QPushButton("stop");
 qt=new QTextEdit();
-    setCentralWidget(qt);
-
-
 
 }
 
