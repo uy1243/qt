@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>vec.qml</file>
+        <file>mwq.qml</file>
     </qresource>
 </RCC>

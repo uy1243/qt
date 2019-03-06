@@ -7,6 +7,8 @@
 #include"funccan.h"
 #include<QMainWindow>
 #include <QPlainTextEdit>
+#include <QQmlApplicationEngine>
+#include <QQuickView>
 
 
 class MainW: public QObject
@@ -19,6 +21,7 @@ public:
      QTextEdit *qt;
      void sendMessages();
      void loadQML();
+     QQuickView *view;
 public slots:
      void showMess(QString mess);
      void showMessInGUI(QString mess);

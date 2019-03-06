@@ -11,7 +11,8 @@ MainW::MainW()
 
 {
    // qb=new QPushButton("stop");
-qt=new QTextEdit();
+    qt=new QTextEdit();
+    view= new QQuickView();
 
 }
 
@@ -24,14 +25,8 @@ void MainW::loadQML()
 {
     // qmlRegisterType<FuncCAN>("People", 1,0, "Person");
 
+    view->setSource(QStringLiteral("qrc:///vec.qml"));
 
-    QQuickView *view = new QQuickView;
-        view->setSource(QStringLiteral("qrc:///vec.qml"));
-        view->show();
-
-    //QQmlApplicationEngine engine;
-    //engine.addImportPath(QStringLiteral(":/imports"));
-   // engine.load(QUrl(QStringLiteral("qrc:///vec.qml")));
 }
 
 
@@ -44,6 +39,6 @@ void MainW::showMess(QString mess)
 }
 void MainW::showMessInGUI(QString mess)
 {
-  qt->append(mess);
+  //qt->append(mess);
 
 }
