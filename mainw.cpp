@@ -23,7 +23,6 @@ void MainW::sendMessages()
 
 void MainW::loadQML()
 {
-    // qmlRegisterType<FuncCAN>("People", 1,0, "Person");
 
     view->setSource(QStringLiteral("qrc:///vec.qml"));
 
@@ -40,5 +39,6 @@ void MainW::showMess(QString mess)
 void MainW::showMessInGUI(QString mess)
 {
   //qt->append(mess);
+    qDebug()<<mess;
 
 }

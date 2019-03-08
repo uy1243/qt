@@ -1,3 +1,4 @@
+#pragma once
 #ifndef PARSEDBC_H
 #define PARSEDBC_H
 #include<QObject>
@@ -5,13 +6,13 @@
 #undef slots
 #include "Python.h"
 #pragma pop_macro("slots")
-
-#pragma comment(lib,"python36.lib")
+//#include "Python.h"
 
 class ParseDBC
 {
 public:
     ParseDBC();
+    void InitPy();
     QString parseMess(QString mess);
 };
 

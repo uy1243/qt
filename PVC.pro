@@ -34,21 +34,22 @@ HEADERS += \
     mulgetmess.h
 
 
-
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/./ -lvxlapi
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/./ -lvxlapid
 
 INCLUDEPATH += $$PWD/.
 DEPENDPATH += $$PWD/.
 
-DISTFILES +=
-
-win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../../../../Python36/libs/ -lpython36
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../../../../Python36/libs/ -lpython36d
-else:unix: LIBS += -L$$PWD/../../../../../../Python36/libs/ -lpython36
-
-INCLUDEPATH += $$PWD/../../../../../../Python36/include
-DEPENDPATH += $$PWD/../../../../../../Python36/include
+DISTFILES += \
+    PyParDBC.py
 
 RESOURCES += \
     videoshow.qrc
+
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/./ -lpython36
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/./ -lpython36d
+else:unix: LIBS += -L$$PWD/./ -lpython36
+
+INCLUDEPATH += $$PWD/include
+DEPENDPATH += $$PWD/include

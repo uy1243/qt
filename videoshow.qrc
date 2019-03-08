@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>vec.qml</file>
         <file>mwq.qml</file>
+        <file>gen.js</file>
     </qresource>
 </RCC>

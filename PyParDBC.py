@@ -10,6 +10,7 @@ except:
     from PyQt5 import QtWidgets
     from PyQt5 import QtQuick
 
+import request
 
 class PyParDBC:
     def __init__(self):
