@@ -7,12 +7,14 @@
 
 
 
+
 MainW::MainW()
 
 {
-   // qb=new QPushButton("stop");
+    // qb=new QPushButton("stop");
     qt=new QTextEdit();
     view= new QQuickView();
+    pyDBC=new ParseDBC();
 
 }
 
@@ -32,13 +34,19 @@ void MainW::loadQML()
 
 void MainW::showMess(QString mess)
 {
-  // qt->append(mess);
+    // qt->append(mess);
+
+
+   // pyDBC->parseMess(mess);
     qDebug()<<mess;
 
 }
 void MainW::showMessInGUI(QString mess)
 {
-  //qt->append(mess);
+    //qt->append(mess);
+
+    CANMess=mess;
+
     qDebug()<<mess;
 
 }

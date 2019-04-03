@@ -35,6 +35,7 @@ XLstatus FuncCAN::CANInit()
         return xlStatus;
     }
 
+    qDebug()<<("has open driver!\n");
     // ---------------------------------------
     // Get/Set the application within VHWConf
     // ---------------------------------------
@@ -74,9 +75,13 @@ XLstatus FuncCAN::CANGoOnBus(unsigned long baudrate)
     char          tmp[100];
 
     xlStatus = xlCanSetChannelBitrate(m_xlPortHandle, m_xlChannelMask_both, baudrate);
+    printf( "xlCanSetChannelBitrate function:\n xlCanSetChannelBitrate\n");
     sprintf_s(tmp, sizeof(tmp), "SetBaudrate: %d, stat: %d", baudrate, xlStatus);
 
     xlStatus = xlActivateChannel(m_xlPortHandle, m_xlChannelMask_both, XL_BUS_TYPE_CAN, XL_ACTIVATE_RESET_CLOCK);
+    printf( "xlActivateChannel function:\n xlActivateChannel:m_xlPortHandle:%ld, m_xlChannelMask_both: %lu\n",
+           m_xlPortHandle, m_xlChannelMask_both);
+    printf( "ActivateChannel, stat: %d\n",xlStatus);
     sprintf_s(tmp, sizeof(tmp), "ActivateChannel, stat: %d", xlStatus);
     return xlStatus;
 }
@@ -143,9 +148,9 @@ XLstatus FuncCAN::canGetChannelMask()
     char            tmp[100];
 
     // default values
-    unsigned int  hwType = 0;
-    unsigned int  hwIndex = 0;
-    unsigned int  hwChannel = 0;
+    unsigned int  hwType = 0;// bus type 0=XL_BUS_TYPE_CAN
+    unsigned int  hwIndex = 0;// is returned.  e. g. CANcardXL: XL_HWTYPE_CANCARDXL
+    unsigned int  hwChannel = 0;//Index of same hardware types is returned (0,1, ...), e. g. for two CANcardXL on one system:
     unsigned int  appChannel = 0;
     unsigned int  busType = XL_BUS_TYPE_CAN;
     unsigned int  i;
@@ -155,11 +160,17 @@ XLstatus FuncCAN::canGetChannelMask()
     XLdriverConfig  xlDrvConfig;
     //check for hardware:
     xlStatus = xlGetDriverConfig(&xlDrvConfig);
-    printf( "xlGetDriverConfig: dllVersion: %d; channelCount: %d\n", xlDrvConfig.dllVersion, xlDrvConfig.channelCount);
+    printf( "xlGetDriverConfig function:\n xlGetDriverConfig: dllVersion: %d; channelCount: %d;xlchannelConfig-info:-name%s\n",
+            xlDrvConfig.dllVersion, xlDrvConfig.channelCount,xlDrvConfig.channel->name);
     if (xlStatus) return xlStatus;
 
     // we check only if there is an application registered or not.
     xlStatus = xlGetApplConfig("xlCANcontrol", CHAN01, &hwType, &hwIndex, &hwChannel, busType);//config by hardconfig
+     //xlStatus = xlGetApplConfig("xlCANcontrol", CHAN01, &hwType, &hwIndex, &hwChannel, busType);//config by hardconfig
+
+    printf( "xlGetApplConfig function:\n hwType: %d; hwIndex: %d;hwChannel:%d\n",
+            hwType, hwIndex,hwChannel);
+
     //AfxMessageBox(xlDrvConfig.channel[0].hwType);
     // Set the params into registry (default values...!)
     if (xlStatus) {
@@ -201,7 +212,8 @@ XLstatus FuncCAN::canGetChannelMask()
 
         // get the first channel (check if channel is assigned)
         m_xlChannelMask[CHAN01] = xlGetChannelMask(hwType, hwIndex, hwChannel);
-        sprintf_s(tmp, sizeof(tmp), "Found CAN in VHWConf, hWType: %d, CM: 0x%I64x", hwType, m_xlChannelMask[CHAN01]);
+        printf( "xlGetChannelMask function-CAN01:\n xlGetChannelMask: hwType: %d; hwIndex: %d;hwChannel:%d\n",
+                hwType, hwIndex,hwChannel);
 
         for (i = 0; i < xlDrvConfig.channelCount; i++) {
 
@@ -224,6 +236,8 @@ XLstatus FuncCAN::canGetChannelMask()
 
         m_xlChannelMask[CHAN02] = xlGetChannelMask(hwType, hwIndex, hwChannel);
         sprintf_s(tmp, sizeof(tmp), "Found CAN in VHWConf, hWType: %d, CM: 0x%I64x", hwType, m_xlChannelMask[CHAN02]);
+        printf( "xlGetChannelMask function-CAN02:\n xlGetChannelMask: hwType: %d; hwIndex: %d;hwChannel:%d\n",
+                hwType, hwIndex,hwChannel);
 
         for (i = 0; i < xlDrvConfig.channelCount; i++) {
 
@@ -258,7 +272,10 @@ XLstatus FuncCAN::canInit()
     xlPermissionMask = m_xlChannelMask_both;
 
     xlStatus = xlOpenPort(&m_xlPortHandle, "xlCANcontrol", m_xlChannelMask_both, &xlPermissionMask, 256, XL_INTERFACE_VERSION, XL_BUS_TYPE_CAN);
-    printf( "xlOpenPort: PortHandle: %d\n", m_xlPortHandle);
+
+    printf( "xlOpenPort function:\n xlOpenPort:m_xlPortHandle:%d, accessMask: %lu; permissionMask,: %lu;rxQueueSize,:%d\n",
+           m_xlPortHandle, m_xlChannelMask_both, xlPermissionMask,256);
+
 
     if (m_xlPortHandle == XL_INVALID_PORTHANDLE) return XL_ERROR;
 
@@ -279,6 +296,8 @@ XLstatus FuncCAN::canCreateRxThread()
         // Send a event for each Msg!!!
         xlStatus = xlSetNotification(m_xlPortHandle, &m_hMsgEvent, 1);
         sprintf_s(tmp, sizeof(tmp), "SetNotification '%d', xlStatus: %d", m_hMsgEvent, xlStatus);
+        printf( "xlSetNotification function:\n xlSetNotification:m_xlPortHandle:%d, m_hMsgEvent: %d\n",
+               m_xlPortHandle, m_hMsgEvent);
 
         // for the RxThread
         g_th.xlPortHandle = m_xlPortHandle;

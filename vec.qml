@@ -1,13 +1,19 @@
-import QtQml 2.2
-import QtQuick 2.9
-import QtQuick.Layouts 1.2
-import QtQuick.Controls 2.3
-import QtQuick.Controls 2.3 as Controls
+import QtQuick 2.0
 
+Rectangle {
+    id: rect
+    width: 80; height: 80
+    color: "red"
 
-Item {
-    id: name
-    visible: true
-    width: 1200
-    height: 800
+    NumberAnimation on opacity {
+        to: 0
+        duration: 1000
+
+        onRunningChanged: {
+            if (!running) {
+                console.log("Destroying...")
+                rect.destroy();
+            }
+        }
+    }
 }

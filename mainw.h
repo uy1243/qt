@@ -9,6 +9,7 @@
 #include <QPlainTextEdit>
 #include <QQmlApplicationEngine>
 #include <QQuickView>
+#include"parsedbc.h"
 
 
 class MainW: public QObject
@@ -22,6 +23,10 @@ public:
      void sendMessages();
      void loadQML();
      QQuickView *view;
+     QString CANMess;
+     ParseDBC* pyDBC;
+private:
+
 public slots:
      void showMess(QString mess);
      void showMessInGUI(QString mess);

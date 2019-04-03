@@ -1,17 +1,19 @@
-#include <QApplication>
+﻿#include <QApplication>
 #include"funccan.h"
 #include<qdebug.h>
 #include<stdio.h>
 #include "vxlapi.h"
 #include"mulgetmess.h"
 #include"mainw.h"
+#include <QMessageBox>
 #include<QObject>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQuickView>
+#include <QTextCodec>
 #include"parsedbc.h"
-
-
+#include <QTranslator>
+#include"parsedbc.h"
 
 
 int main(int argc, char *argv[])
@@ -26,6 +28,13 @@ int main(int argc, char *argv[])
 
     MainW *mw=new MainW();
 
+    qDebug()<<"asdasdasd";
+
+    QString qs="C:\迅雷下载\REC_20190109_180318_GEELY car__FCA_description.txt";
+
+    //QFile qf(QString::fromUtf8(qs.toStdString().c_str()));
+    qDebug()<<qs.toStdString().data();
+
     ParseDBC* pd=new ParseDBC();
     pd->InitPy();
     QObject::connect(mw, &MainW::sigMess,mw, &MainW::showMessInGUI);
@@ -34,8 +43,12 @@ int main(int argc, char *argv[])
 
     mulGetMess *mulM=new mulGetMess();
     mulM->getMessage(gth);
+    //QString canMessage
     mulM->start();
     QObject::connect(mulM, &mulGetMess::sigCANMes,mw, &MainW::showMess);
+
+    ParseDBC *pydbc=new ParseDBC();
+    QObject::connect(mulM, &mulGetMess::sigCANMes,pydbc, &ParseDBC::parseMess);
 
     //qmlRegisterType<MainW>("MainW", 1,0, "MainW");
 

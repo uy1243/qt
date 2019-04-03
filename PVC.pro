@@ -41,7 +41,9 @@ INCLUDEPATH += $$PWD/.
 DEPENDPATH += $$PWD/.
 
 DISTFILES += \
-    PyParDBC.py
+    PyParDBC.py \
+    PyParCAN.py \
+    ../build-PVC-Desktop_Qt_5_11_3_MinGW_32bit-Release/release/PyParDBC.py
 
 RESOURCES += \
     videoshow.qrc

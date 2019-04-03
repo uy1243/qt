@@ -8,11 +8,12 @@
 #pragma pop_macro("slots")
 //#include "Python.h"
 
-class ParseDBC
+class ParseDBC: public QObject
 {
 public:
     ParseDBC();
     void InitPy();
+public slots:
     QString parseMess(QString mess);
 };
 
